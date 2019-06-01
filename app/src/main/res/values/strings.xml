@@ -9,9 +9,9 @@
     <string name="actionsettings">Settings</string>
 
     <string name="menuhome">Home</string>
-    <string name="menugallery">Gallery</string>
-    <string name="menuslideshow">Slideshow</string>
     <string name="menutools">Tools</string>
-    <string name="menushare">Share</string>
-    <string name="menusend">Send</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="topics">Topics</string>
+    <string name="dashboard">Dashboard</string>
 </resources>
