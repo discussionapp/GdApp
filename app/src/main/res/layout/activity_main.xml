@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_email"
+        <EditText android:id="@+id/input_email3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_password"
+        <EditText android:id="@+id/input_password3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -47,7 +47,7 @@
             android:textColor="@color/text"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_login3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -57,7 +57,7 @@
         android:background="@color/text"
         android:textColor="#0058FF"/>
 
-    <TextView android:id="@+id/link_signup"
+    <TextView android:id="@+id/link_signup3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
