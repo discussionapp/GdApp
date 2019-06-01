@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(MainActivity.this, "Not sucessfull", Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(MainActivity.this, logoutActivity.class));
+                                startActivity(new Intent(MainActivity.this, navigationActivity.class));
                             }
                         }
                     });

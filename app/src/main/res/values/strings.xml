@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">GdApp</string>
+    <string name="titleactivity_navigation">navigationActivity</string>
+    <string name="navigationdrawer_open">Open navigation drawer</string>
+    <string name="navigationdrawer_close">Close navigation drawer</string>
+    <string name="navheader_title">Android Studio</string>
+    <string name="navheader_subtitle">android.studio@android.com</string>
+    <string name="navheader_desc">Navigation header</string>
+    <string name="actionsettings">Settings</string>
+
+    <string name="menuhome">Home</string>
+    <string name="menugallery">Gallery</string>
+    <string name="menuslideshow">Slideshow</string>
+    <string name="menutools">Tools</string>
+    <string name="menushare">Share</string>
+    <string name="menusend">Send</string>
 </resources>
