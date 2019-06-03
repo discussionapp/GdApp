@@ -44,7 +44,7 @@ public class MyArrayAdapter extends ArrayAdapter<MyDataModel> {
 
         MyDataModel item = getItem(position);
 
-        vh.textViewName.setText(item.getName());
+        vh.textViewName.setText(item.getDailyTopic());
         //vh.textViewCountry.setText(item.getCountry());
 
         return vh.rootView;

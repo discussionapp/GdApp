@@ -1,24 +1,15 @@
 package com.anshu.www.gdapp.model;
 
 public class MyDataModel {
-    private String name;
+    private String DailyTopic;
 
-//    private String country;
-
-
-    public String getName() {
-        return name;
+    public String getDailyTopic() {
+        return DailyTopic;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDailyTopic(String dailyTopic) {
+        DailyTopic = dailyTopic;
     }
 
-  /*  public String getCountry() {
-        return country;
-    }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }*/
 }

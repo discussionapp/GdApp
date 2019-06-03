@@ -66,7 +66,7 @@ public class navigationActivity extends AppCompatActivity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Snackbar.make(findViewById(R.id.drawer_layout), list.get(position).getName() + " => " + list.get(position), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.drawer_layout), list.get(position).getDailyTopic() + " => " + list.get(position), Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -186,7 +186,7 @@ public class navigationActivity extends AppCompatActivity
                                 //JSONObject phoneObject = innerObject.getJSONObject(Keys.KEY_PHONE);
                                 //String phone = phoneObject.getString(Keys.KEY_MOBILE);
 
-                                model.setName(name);
+                                model.setDailyTopic(name);
                                // model.setCountry(country);
 
                                 /**
