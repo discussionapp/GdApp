@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#0000FF</color>
     <color name="colorAccent">#ffffff</color>
     <color name="text">#D9F1FD</color>
+    <color name="dashboard_back">#ECEDFF</color>
 </resources>

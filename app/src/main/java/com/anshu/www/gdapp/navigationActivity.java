@@ -1,5 +1,6 @@
 package com.anshu.www.gdapp;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,11 +33,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-//import android.util.Keys;
 
 public class navigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private ListView listView;
     private ArrayList<MyDataModel> list;
     private MyArrayAdapter adapter;
     private int id;
@@ -48,20 +47,10 @@ public class navigationActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /**
-         * Array List for Binding Data from JSON to this List
-         */
         list = new ArrayList<>();
-        /**
-         * Binding that List to Adapter
-         */
         adapter = new MyArrayAdapter(this, list);
 
-        /**
-         * Getting List and Setting List Adapter
-         */
-        //id = R.layout.content_navigation;
-        listView = (ListView) findViewById(R.id.listview);
+        ListView listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,10 +59,7 @@ public class navigationActivity extends AppCompatActivity
             }
         });
 
-        /**
-         * Just to know onClick and Printing Hello Toast in Center.
-         */
-        Toast toast = Toast.makeText(getApplicationContext(), "Click on FloatingActionButton to Load JSON", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(), "Click on Refresh button to get todays topic", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
 
@@ -81,11 +67,8 @@ public class navigationActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           //     Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-             //           .setAction("Action", null).show();
-                /**
-                 * Checking Internet Connection
-                 */
+                //     Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //           .setAction("Action", null).show();
 
                 if (InternetConnection.checkConnection(getApplicationContext())) {
                     new GetDataTask().execute();
@@ -102,9 +85,11 @@ public class navigationActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
     }
+
     /**
      * Creating Get Data Task for Getting Data From Web
      */
+    @SuppressLint("StaticFieldLeak")
     class GetDataTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
@@ -114,20 +99,16 @@ public class navigationActivity extends AppCompatActivity
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            /**
-             * Progress Dialog for User Interaction
-             */
+            x = list.size();
 
-            x=list.size();
-
-            if(x==0)
-                jIndex=0;
+            if (x == 0)
+                jIndex = 0;
             else
-                jIndex=x;
+                jIndex = x;
 
             dialog = new ProgressDialog(navigationActivity.this);
-            dialog.setTitle("Hey Wait Please..."+x);
-            dialog.setMessage("I am getting your JSON");
+            dialog.setTitle("Hey Wait Please..." + x);
+            dialog.setMessage("lets see what is the todays topic");
             dialog.show();
         }
 
@@ -135,69 +116,25 @@ public class navigationActivity extends AppCompatActivity
         @Override
         protected Void doInBackground(Void... params) {
 
-            /**
-             * Getting JSON Object from Web Using okHttp
-             */
             JSONObject jsonObject = JSONparser.getDataFromWeb();
 
             try {
-                /**
-                 * Check Whether Its NULL???
-                 */
                 if (jsonObject != null) {
-                    /**
-                     * Check Length...
-                     */
-                    if(jsonObject.length() > 0) {
-                        /**
-                         * Getting Array named "contacts" From MAIN Json Object
-                         */
+                    if (jsonObject.length() > 0) {
                         JSONArray array = jsonObject.getJSONArray(Keys.KEY_CONTACTS);
-
-                        /**
-                         * Check Length of Array...
-                         */
-
-
                         int lenArray = array.length();
-                        if(lenArray > 0) {
-                            for( ; jIndex < lenArray; jIndex++) {
-
-                                /**
-                                 * Creating Every time New Object
-                                 * and
-                                 * Adding into List
-                                 */
+                        if (lenArray > 0) {
+                            for (; jIndex < lenArray; jIndex++) {
                                 MyDataModel model = new MyDataModel();
-
-                                /**
-                                 * Getting Inner Object from contacts array...
-                                 * and
-                                 * From that We will get Name of that Contact
-                                 *
-                                 */
                                 JSONObject innerObject = array.getJSONObject(jIndex);
                                 String name = innerObject.getString(Keys.KEY_NAME);
-//                                String country = innerObject.getString(Keys.KEY_COUNTRY);
-
-                                /**
-                                 * Getting Object from Object "phone"
-                                 */
-                                //JSONObject phoneObject = innerObject.getJSONObject(Keys.KEY_PHONE);
-                                //String phone = phoneObject.getString(Keys.KEY_MOBILE);
-
                                 model.setDailyTopic(name);
-                               // model.setCountry(country);
-
-                                /**
-                                 * Adding name and phone concatenation in List...
-                                 */
                                 list.add(model);
                             }
                         }
                     }
                 } else {
-
+                    Toast.makeText(getApplicationContext(), "something went wrong", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException je) {
                 Log.i(JSONparser.TAG, "" + je.getLocalizedMessage());
@@ -209,17 +146,17 @@ public class navigationActivity extends AppCompatActivity
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             dialog.dismiss();
-            /**
-             * Checking if List size if more than zero then
-             * Update ListView
-             */
-            if(list.size() > 0) {
+
+            //Checking if List size if more than zero then Update ListView
+
+            if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
                 Snackbar.make(findViewById(R.id.drawer_layout), "No Data Found", Snackbar.LENGTH_LONG).show();
             }
         }
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
