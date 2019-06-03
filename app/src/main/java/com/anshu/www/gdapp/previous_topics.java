@@ -1,31 +1,28 @@
 package com.anshu.www.gdapp;
 
+
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.anshu.www.gdapp.adapter.MyArrayAdapter2;
 import com.anshu.www.gdapp.model.MyDataModel;
 import com.anshu.www.gdapp.parser.JSONparser;
 import com.anshu.www.gdapp.utils.InternetConnection;
 import com.anshu.www.gdapp.utils.Keys;
+//import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,20 +30,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-//import android.util.Keys;
+public class previous_topics extends AppCompatActivity {
 
-public class navigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
     private ListView listView;
     private ArrayList<MyDataModel> list;
-    private MyArrayAdapter adapter;
-    private int id;
+    private MyArrayAdapter2 adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_previous_topics);
+      //  Fresco.initialize(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
 
         /**
@@ -56,18 +52,17 @@ public class navigationActivity extends AppCompatActivity
         /**
          * Binding that List to Adapter
          */
-        adapter = new MyArrayAdapter(this, list);
+        adapter = new  MyArrayAdapter2(this, list);
 
         /**
          * Getting List and Setting List Adapter
          */
-        //id = R.layout.content_navigation;
-        listView = (ListView) findViewById(R.id.listview);
+        listView = (ListView) findViewById(R.id.listView1);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Snackbar.make(findViewById(R.id.drawer_layout), list.get(position).getName() + " => " + list.get(position), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.parentLayout), list.get(position).getName() + " => " + list.get(position).getCountry(), Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -78,16 +73,14 @@ public class navigationActivity extends AppCompatActivity
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-           //     Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-             //           .setAction("Action", null).show();
+            public void onClick(@NonNull View view) {
+
                 /**
                  * Checking Internet Connection
                  */
-
                 if (InternetConnection.checkConnection(getApplicationContext())) {
                     new GetDataTask().execute();
                 } else {
@@ -95,14 +88,8 @@ public class navigationActivity extends AppCompatActivity
                 }
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigationdrawer_open, R.string.navigationdrawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
     }
+
     /**
      * Creating Get Data Task for Getting Data From Web
      */
@@ -126,7 +113,7 @@ public class navigationActivity extends AppCompatActivity
             else
                 jIndex=x;
 
-            dialog = new ProgressDialog(navigationActivity.this);
+            dialog = new ProgressDialog(previous_topics.this);
             dialog.setTitle("Hey Wait Please..."+x);
             dialog.setMessage("I am getting your JSON");
             dialog.show();
@@ -179,7 +166,7 @@ public class navigationActivity extends AppCompatActivity
                                  */
                                 JSONObject innerObject = array.getJSONObject(jIndex);
                                 String name = innerObject.getString(Keys.KEY_NAME);
-//                                String country = innerObject.getString(Keys.KEY_COUNTRY);
+                                String country = innerObject.getString(com.anshu.www.gdapp.util.Keys.KEY_COUNTRY);
 
                                 /**
                                  * Getting Object from Object "phone"
@@ -188,7 +175,7 @@ public class navigationActivity extends AppCompatActivity
                                 //String phone = phoneObject.getString(Keys.KEY_MOBILE);
 
                                 model.setName(name);
-                               // model.setCountry(country);
+                                model.setCountry(country);
 
                                 /**
                                  * Adding name and phone concatenation in List...
@@ -217,66 +204,8 @@ public class navigationActivity extends AppCompatActivity
             if(list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-                Snackbar.make(findViewById(R.id.drawer_layout), "No Data Found", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.parentLayout), "No Data Found", Snackbar.LENGTH_LONG).show();
             }
         }
-    }
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            Intent i=new Intent(navigationActivity.this,previous_topics.class);
-            startActivity(i);
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }

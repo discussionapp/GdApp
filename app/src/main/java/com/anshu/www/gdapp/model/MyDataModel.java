@@ -1,9 +1,9 @@
 package com.anshu.www.gdapp.model;
-
 public class MyDataModel {
+
     private String name;
 
-//    private String country;
+    private String country;
 
 
     public String getName() {
@@ -14,11 +14,12 @@ public class MyDataModel {
         this.name = name;
     }
 
-  /*  public String getCountry() {
+    public String getCountry() {
         return country;
     }
 
     public void setCountry(String country) {
         this.country = country;
-    }*/
+    }
+
 }
