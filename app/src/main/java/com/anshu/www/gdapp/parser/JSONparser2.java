@@ -28,7 +28,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 
-public class JSONparser {
+public class JSONparser2 {
 
     private static final String MAIN_URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1tbP16i8IT8wW4xMCylf_3pWMP3-NhNbdoU2YZETjsq0&sheet=Sheet1";
 

@@ -9,17 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.anshu.www.gdapp.model.MyDataModel;
+import com.anshu.www.gdapp.model.Mydatamodel;
 
 import java.util.List;
 
-public class MyArrayAdapter extends ArrayAdapter<MyDataModel> {
-    List<MyDataModel> modelList;
+public class MyArrayAdapter extends ArrayAdapter<Mydatamodel> {
+    List<Mydatamodel> modelList;
     Context context;
     private LayoutInflater mInflater;
 
     // Constructors
-    public MyArrayAdapter(Context context, List<MyDataModel> objects) {
+    public MyArrayAdapter(Context context, List<Mydatamodel> objects) {
         super(context, 0, objects);
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -27,7 +27,7 @@ public class MyArrayAdapter extends ArrayAdapter<MyDataModel> {
     }
 
     @Override
-    public MyDataModel getItem(int position) {
+    public Mydatamodel getItem(int position) {
         return modelList.get(position);
     }
 
@@ -42,7 +42,7 @@ public class MyArrayAdapter extends ArrayAdapter<MyDataModel> {
             vh = (ViewHolder) convertView.getTag();
         }
 
-        MyDataModel item = getItem(position);
+        Mydatamodel item = getItem(position);
 
         vh.textViewName.setText(item.getName());
         //vh.textViewCountry.setText(item.getCountry());

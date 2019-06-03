@@ -18,8 +18,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.anshu.www.gdapp.adapter.MyArrayAdapter2;
-import com.anshu.www.gdapp.model.MyDataModel;
-import com.anshu.www.gdapp.parser.JSONparser;
+import com.anshu.www.gdapp.model.Mydatamodel;
+import com.anshu.www.gdapp.parser.JSONparser2;
 import com.anshu.www.gdapp.utils.InternetConnection;
 import com.anshu.www.gdapp.utils.Keys;
 //import com.facebook.drawee.backends.pipeline.Fresco;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class previous_topics extends AppCompatActivity {
 
     private ListView listView;
-    private ArrayList<MyDataModel> list;
+    private ArrayList<Mydatamodel> list;
     private MyArrayAdapter2 adapter;
 
     @Override
@@ -126,7 +126,7 @@ public class previous_topics extends AppCompatActivity {
             /**
              * Getting JSON Object from Web Using okHttp
              */
-            JSONObject jsonObject = JSONparser.getDataFromWeb();
+            JSONObject jsonObject = JSONparser2.getDataFromWeb();
 
             try {
                 /**
@@ -156,7 +156,7 @@ public class previous_topics extends AppCompatActivity {
                                  * and
                                  * Adding into List
                                  */
-                                MyDataModel model = new MyDataModel();
+                                Mydatamodel model = new Mydatamodel();
 
                                 /**
                                  * Getting Inner Object from contacts array...
@@ -188,7 +188,7 @@ public class previous_topics extends AppCompatActivity {
 
                 }
             } catch (JSONException je) {
-                Log.i(JSONparser.TAG, "" + je.getLocalizedMessage());
+                Log.i(JSONparser2.TAG, "" + je.getLocalizedMessage());
             }
             return null;
         }

@@ -22,8 +22,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.anshu.www.gdapp.model.MyDataModel;
-import com.anshu.www.gdapp.parser.JSONparser;
+import com.anshu.www.gdapp.model.Mydatamodel;
+import com.anshu.www.gdapp.parser.JSONparser2;
 import com.anshu.www.gdapp.utils.InternetConnection;
 import com.anshu.www.gdapp.utils.Keys;
 
@@ -38,7 +38,7 @@ import java.util.ArrayList;
 public class navigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ListView listView;
-    private ArrayList<MyDataModel> list;
+    private ArrayList<Mydatamodel> list;
     private MyArrayAdapter adapter;
     private int id;
 
@@ -139,7 +139,7 @@ public class navigationActivity extends AppCompatActivity
             /**
              * Getting JSON Object from Web Using okHttp
              */
-            JSONObject jsonObject = JSONparser.getDataFromWeb();
+            JSONObject jsonObject = JSONparser2.getDataFromWeb();
 
             try {
                 /**
@@ -169,7 +169,7 @@ public class navigationActivity extends AppCompatActivity
                                  * and
                                  * Adding into List
                                  */
-                                MyDataModel model = new MyDataModel();
+                                Mydatamodel model = new Mydatamodel();
 
                                 /**
                                  * Getting Inner Object from contacts array...
@@ -201,7 +201,7 @@ public class navigationActivity extends AppCompatActivity
 
                 }
             } catch (JSONException je) {
-                Log.i(JSONparser.TAG, "" + je.getLocalizedMessage());
+                Log.i(JSONparser2.TAG, "" + je.getLocalizedMessage());
             }
             return null;
         }

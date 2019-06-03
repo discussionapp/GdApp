@@ -1,5 +1,5 @@
 package com.anshu.www.gdapp.model;
-public class MyDataModel {
+public class Mydatamodel {
 
     private String name;
 
