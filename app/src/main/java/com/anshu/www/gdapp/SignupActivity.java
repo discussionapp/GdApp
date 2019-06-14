@@ -12,21 +12,27 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     public EditText emailId, passwd;
     Button btnSignUp;
     TextView signIn;
     FirebaseAuth firebaseAuth;
+    private DatabaseReference rootreference;
+    EditText username4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_layout);
         firebaseAuth = FirebaseAuth.getInstance();
+        rootreference= FirebaseDatabase.getInstance().getReference();
         emailId = findViewById(R.id.input_email);
         passwd = findViewById(R.id.input_password);
         btnSignUp = findViewById(R.id.btn_signup);
+        username4=findViewById(R.id.input_name);
         signIn = findViewById(R.id.link_login);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +57,17 @@ public class SignupActivity extends AppCompatActivity {
                                         "SignUp unsuccessful: " + task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(SignupActivity.this, logoutActivity.class));
+                                    String currentuserid=firebaseAuth.getCurrentUser().getUid();
+                                    rootreference.child("Users").child(currentuserid).setValue("");
+                                Intent mainIntent=new Intent(SignupActivity.this,navigationActivity.class);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(mainIntent);
+
+                                finish();
+
+                                // startActivity(new Intent(SignupActivity.this, navigationActivity.class));
+
+
                             }
                         }
                     });

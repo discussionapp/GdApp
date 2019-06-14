@@ -23,6 +23,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,8 +44,12 @@ public class navigationActivity extends AppCompatActivity
 ListView listview3;
 FirebaseDatabase database3;
 DatabaseReference ref3;
+    DatabaseReference Rootref,checkref;
+FirebaseAuth mauth5;
 ArrayList<String> list3;
 FloatingActionButton fab;
+
+
 ArrayAdapter<String> adapter3;
 user3 user;
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,9 @@ user3 user;
         setSupportActionBar(toolbar);
         listview3=findViewById(R.id.listview3);
         user=new user3();
+        mauth5=FirebaseAuth.getInstance();
+        checkref=FirebaseDatabase.getInstance().getReference();
+        Rootref=FirebaseDatabase.getInstance().getReference();
         database3=FirebaseDatabase.getInstance();
         ref3=database3.getReference("todaystopics");
         list3=new ArrayList<>();
@@ -63,7 +75,7 @@ user3 user;
                 {
 
                     user=ds.getValue(user3.class);
-                    list3.add(user.getName().toString()+" "+user.getTopic().toString());
+                    list3.add(user.getTopic().toString()+" "+"by"+" "+ user.getName());
 
                 }
                 listview3.setAdapter(adapter3);
@@ -90,6 +102,53 @@ user3 user;
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        listview3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               final String currentGroupname1=parent.getItemAtPosition(position).toString();
+                Intent groupchatintent=new Intent(getApplicationContext(),groupchatactivity.class);
+                groupchatintent.putExtra("groupname",currentGroupname1);
+
+               checkref.child("Groups").child(currentGroupname1).addValueEventListener(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                       if(!(dataSnapshot.exists()))
+                       {
+                           createnewgroup(currentGroupname1);
+                       }
+                   }
+
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                   }
+               });
+
+                startActivity(groupchatintent);
+
+            }
+        });
+
+    }
+
+    private void createnewgroup(final String groupname)
+    {
+    Rootref.child("Groups").child(groupname).setValue("").addOnCompleteListener(new OnCompleteListener<Void>() {
+        @Override
+        public void onComplete(@NonNull Task<Void> task) {
+
+            if(task.isSuccessful())
+            {
+                Toast.makeText(navigationActivity.this,groupname +" "+"group is created",Toast.LENGTH_LONG).show();
+            }
+
+        }
+    });
+
+
+
+
     }
 
     @Override
@@ -105,23 +164,26 @@ user3 user;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
+        getMenuInflater().inflate(R.menu.options_menuchat,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.main_logout_option) {
+    mauth5.signOut();
+    Intent k=new Intent(navigationActivity.this,MainActivity.class);
+    startActivity(k);
         }
+        if (item.getItemId() == R.id.main_settings_option) {
+            Intent h=new Intent(navigationActivity.this,Settingspage.class);
+            startActivity(h);
+        }
+        if (item.getItemId() == R.id.main_find_friends_option) {
 
-        return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -137,6 +199,8 @@ user3 user;
             startActivity(j);
 
         } else if (id == R.id.nav_slideshow) {
+           // Intent h=new Intent(navigationActivity.this,dashboardActivity.class);
+            //startActivity(h);
 
         } else if (id == R.id.nav_tools) {
 
@@ -149,5 +213,56 @@ user3 user;
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(user==null)
+        {
+
+            Intent z=new Intent(navigationActivity.this,MainActivity.class);
+            z.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(z);
+            finish();
+        }
+
+        else
+        {
+            verifyuserexistance();
+
+        }
+    }
+
+    private void verifyuserexistance() {
+
+   String currentuserid7=mauth5.getCurrentUser().getUid();
+
+   Rootref.child("Users").child(currentuserid7).addValueEventListener(new ValueEventListener() {
+       @Override
+       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+           if(!(dataSnapshot.child("name").exists()))
+           {
+
+               Intent u=new Intent(navigationActivity.this,Settingspage.class);
+               u.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+               startActivity(u);
+               finish();
+
+           }
+
+       }
+
+       @Override
+       public void onCancelled(@NonNull DatabaseError databaseError) {
+
+       }
+   });
+
+
+
+
+
     }
 }

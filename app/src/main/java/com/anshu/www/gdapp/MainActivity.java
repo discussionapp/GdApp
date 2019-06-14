@@ -38,7 +38,12 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     Toast.makeText(MainActivity.this, "User logged in ", Toast.LENGTH_SHORT).show();
                     Intent I = new Intent(MainActivity.this, navigationActivity.class);
+                    I.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(I);
+
+                    finish();
+
+
                 } else {
                     Toast.makeText(MainActivity.this, "Login to continue", Toast.LENGTH_SHORT).show();
                 }
@@ -71,7 +76,13 @@ public class MainActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(MainActivity.this, "Not sucessfull", Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(MainActivity.this, navigationActivity.class));
+                                Intent mainIntent2=new Intent(MainActivity.this,navigationActivity.class);
+                                mainIntent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(mainIntent2);
+
+                                finish();
+
+                                //startActivity(new Intent(MainActivity.this, navigationActivity.class));
                             }
                         }
                     });
@@ -88,4 +99,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         firebaseAuth.addAuthStateListener(authStateListener);
     }
+
+
 }
