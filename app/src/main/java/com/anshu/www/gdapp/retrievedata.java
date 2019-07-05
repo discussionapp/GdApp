@@ -62,7 +62,7 @@ public class retrievedata extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final String currentgroupname2=parent.getItemAtPosition(position).toString();
-                Intent groupchat2intent=new Intent(getApplicationContext(),groupchatactivity.class);
+                Intent groupchat2intent=new Intent(getApplicationContext(),GroupChat.class);
                 groupchat2intent.putExtra("groupname",currentgroupname2);
                 group2ref.child("Groups").child(currentgroupname2).addValueEventListener(new ValueEventListener() {
                     @Override

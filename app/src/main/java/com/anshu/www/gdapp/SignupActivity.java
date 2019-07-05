@@ -37,8 +37,9 @@ public class SignupActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailID = emailId.getText().toString();
+                final String emailID = emailId.getText().toString();
                 String paswd = passwd.getText().toString();
+                final String name=username4.getText().toString();
                 if (emailID.isEmpty()) {
                     emailId.setError("Provide your Email first!");
                     emailId.requestFocus();
@@ -58,7 +59,10 @@ public class SignupActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                     String currentuserid=firebaseAuth.getCurrentUser().getUid();
-                                    rootreference.child("Users").child(currentuserid).setValue("");
+                                    User user=new User();
+                                    user.setName(name);
+                                    user.setEmail(emailID);
+                                    rootreference.child("Users").child(currentuserid).setValue(user);
                                 Intent mainIntent=new Intent(SignupActivity.this,navigationActivity.class);
                                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(mainIntent);
