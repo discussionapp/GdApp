@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:padding="5dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/msgbackground_left">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Doyel"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_gravity="start"
+            android:textAllCaps="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="hello"
+            android:textStyle="normal"
+            android:padding="5dp"
+            android:id="@+id/show_message"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11:40am"
+            android:id="@+id/text_msg_time"
+            android:textSize="12sp"
+            android:padding="1dp"
+            android:layout_gravity="start"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

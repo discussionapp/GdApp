@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".GroupChat"></activity>
         <activity android:name=".Settingspage" />
         <activity android:name=".groupchatactivity" />
         <activity android:name=".retrievedata" />
