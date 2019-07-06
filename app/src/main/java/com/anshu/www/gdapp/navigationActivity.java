@@ -187,20 +187,20 @@ public class navigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            
+        } else if (id == R.id.nav_topics) {
             Intent j = new Intent(navigationActivity.this, retrievedata.class);
             startActivity(j);
 
-        } else if (id == R.id.nav_slideshow) {
-            // Intent h=new Intent(navigationActivity.this,dashboardActivity.class);
-            //startActivity(h);
+        } else if (id == R.id.nav_dashboard) {
+            Intent h = new Intent(navigationActivity.this, dashboardActivity.class);
+            startActivity(h);
 
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_rate) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_signout) {
 
         }
 
