@@ -7,21 +7,24 @@ public class message {
     String msg;
     String name;
     String key;
+    int votes;
+    String fromuserid;
     private long time;
 
 
     public message() {}
 
-    public message(String msg, String name) {
+    public message(String msg, String name,int votes,String fromuserid) {
         this.msg = msg;
         this.name = name;
         time=new Date().getTime();
+        this.fromuserid=fromuserid;
     }
 
     public long getTime() {
         return time;
     }
-
+public String getfromuserid(){ return fromuserid;}
     public void setTime(long time) {
         this.time = time;
     }
@@ -29,6 +32,8 @@ public class message {
     public String getMsg() {
         return msg;
     }
+
+    public int getVotes(){ return votes;}
 
     public void setMsg(String msg) {
         this.msg = msg;
@@ -46,6 +51,10 @@ public class message {
         return key;
     }
 
+    public void setVotes(int vote) {
+        this.votes = vote;
+    }
+
     public void setKey(String key) {
         this.key = key;
     }
@@ -56,7 +65,7 @@ public class message {
                 "msg='" + msg + '\'' +
                 ", name='" + name + '\'' +
                 ", key='" + key + '\'' +
-                ", time=" + time +
+                ", time=" + time + '\'' + ", votes="+ fromuserid+ '\''+
                 '}';
     }
 }
