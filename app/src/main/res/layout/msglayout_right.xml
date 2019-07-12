@@ -10,6 +10,13 @@
         android:layout_alignParentEnd="true"
         android:orientation="vertical"
         android:background="@drawable/msgbackground_right">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="40dp"
+            android:id="@+id/receiverprofileimage"
+            android:src="@drawable/profile_image"
+            android:layout_height="40dp" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
@@ -39,6 +46,23 @@
             android:padding="1dp"
             android:layout_gravity="end"
             android:textSize="12sp" />
+
+        <ImageButton
+            android:layout_width="20dp"
+            android:id="@+id/img1"
+            android:layout_height="20dp" />
+
+       <ImageButton
+            android:id="@+id/img2"
+            android:layout_width="20dp"
+
+            android:layout_height="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/votesshow"
+            android:text="Votes"/>
 
     </LinearLayout>
 

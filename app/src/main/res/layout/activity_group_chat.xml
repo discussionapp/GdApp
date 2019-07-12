@@ -13,6 +13,8 @@
 
     </include>
 
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
@@ -21,6 +23,10 @@
         android:layout_below="@+id/group_chat_bar_layout1">
 
     </android.support.v7.widget.RecyclerView>
+
+
+
+
 
     <LinearLayout
         android:id="@+id/chat_linear_layout"

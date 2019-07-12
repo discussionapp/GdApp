@@ -1,7 +1,10 @@
 package com.anshu.www.gdapp;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,12 +20,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +42,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class navigationActivity extends AppCompatActivity
@@ -47,10 +56,11 @@ public class navigationActivity extends AppCompatActivity
     FirebaseAuth mauth5;
     ArrayList<String> list3;
     FloatingActionButton fab;
+    AlertDialog.Builder builder;
 
 
     ArrayAdapter<String> adapter3;
-    user3 user;
+    static user3 user;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +69,7 @@ public class navigationActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         listview3 = findViewById(R.id.listview3);
         user = new user3();
+        builder = new AlertDialog.Builder(navigationActivity.this, R.style.MyDialogTheme);
         mauth5 = FirebaseAuth.getInstance();
         checkref = FirebaseDatabase.getInstance().getReference();
         Rootref = FirebaseDatabase.getInstance().getReference();
@@ -66,6 +77,8 @@ public class navigationActivity extends AppCompatActivity
         ref3 = database3.getReference("todaystopics");
         list3 = new ArrayList<>();
         adapter3 = new ArrayAdapter<String>(this, R.layout.userinfo2, R.id.textview3, list3);
+
+
 
         ref3.addValueEventListener(new ValueEventListener() {
             @Override
@@ -125,6 +138,37 @@ public class navigationActivity extends AppCompatActivity
 
                 startActivity(groupchatintent);
 
+            }
+        });
+
+        listview3.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                builder.setMessage("Do you want to vote this topic ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finish();
+                                Toast.makeText(getApplicationContext(),"you choose yes action for alertbox",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Action for 'NO' Button
+                                dialog.cancel();
+                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                //Creating dialog box
+                AlertDialog alert = builder.create();
+                //Setting the title manually
+                alert.setTitle("AlertDialogExample");
+                alert.show();
+
+                return true;
             }
         });
 
@@ -251,4 +295,12 @@ public class navigationActivity extends AppCompatActivity
 
 
     }
+
+   static public String currentusername()
+    {
+
+        return user.getName();
+    }
+
+
 }

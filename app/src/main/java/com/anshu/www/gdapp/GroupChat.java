@@ -1,5 +1,6 @@
 package com.anshu.www.gdapp;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,23 +30,30 @@ import java.util.List;
 
 public class GroupChat extends AppCompatActivity {
 
-    FirebaseAuth auth;
+    static FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference messageref;
     MessageAdapter messageAdapter;
     User user;
+    int votes=0;
     List<message> messages;
     private Toolbar toolbar;
     RecyclerView recyclerView;
     EditText msg;
     FloatingActionButton send;
-    String currentgroupname2;
+   public String  currentgroupname2;
+   static String tempname;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         currentgroupname2 = getIntent().getExtras().get("groupname").toString();
         setContentView(R.layout.activity_group_chat);
+
+        tempname=currentgroupname2;
 
         toolbar = findViewById(R.id.group_chat_bar_layout1);
         setSupportActionBar(toolbar);
@@ -57,19 +67,22 @@ public class GroupChat extends AppCompatActivity {
         msg = findViewById(R.id.input_msg);
         send = findViewById(R.id.send);
 
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (!TextUtils.isEmpty(msg.getText().toString())) {
-                    message message = new message(msg.getText().toString(), user.getName());
+                    message message = new message(msg.getText().toString(), user.getName(),votes,auth.getCurrentUser().getUid());
                     msg.setText("");
                     messageref.push().setValue(message);
+
                 } else {
                     Toast.makeText(GroupChat.this, "You can't send empty msg", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
 
     @Override
@@ -161,8 +174,18 @@ public class GroupChat extends AppCompatActivity {
 
     private void displaymessages(List<message> messages) {
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(GroupChat.this));
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(GroupChat.this);
+        linearLayoutManager.scrollToPosition(messages.size()-1);
+        recyclerView.setLayoutManager(linearLayoutManager);
+       // recyclerView.setLayoutManager(new LinearLayoutManager(GroupChat.this));
         messageAdapter = new MessageAdapter(GroupChat.this, messages, messageref);
         recyclerView.setAdapter(messageAdapter);
     }
+
+    public static String returnfromuserid()
+    {
+        return  auth.getCurrentUser().getUid();
+
+    }
+
 }
