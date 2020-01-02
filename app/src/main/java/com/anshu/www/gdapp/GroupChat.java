@@ -35,7 +35,7 @@ public class GroupChat extends AppCompatActivity {
     DatabaseReference messageref;
     MessageAdapter messageAdapter;
     User user;
-    int votes=0;
+    //int votes=0;
     List<message> messages;
     private Toolbar toolbar;
     RecyclerView recyclerView;
@@ -43,6 +43,8 @@ public class GroupChat extends AppCompatActivity {
     FloatingActionButton send;
    public String  currentgroupname2;
    static String tempname;
+int likes=0;
+int dislikes=0;
 
 
 
@@ -73,7 +75,7 @@ public class GroupChat extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!TextUtils.isEmpty(msg.getText().toString())) {
-                    message message = new message(msg.getText().toString(), user.getName(),votes,auth.getCurrentUser().getUid());
+                    message message = new message(msg.getText().toString(), user.getName(),likes,dislikes,auth.getCurrentUser().getUid());
                     msg.setText("");
                     messageref.push().setValue(message);
 

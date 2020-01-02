@@ -8,17 +8,21 @@ public class message {
     String name;
     String key;
     int votes;
+    int likes;
+    int dislikes;
     String fromuserid;
     private long time;
 
 
     public message() {}
 
-    public message(String msg, String name,int votes,String fromuserid) {
+    public message(String msg, String name,int likes,int dislikes,String fromuserid) {
         this.msg = msg;
         this.name = name;
         time=new Date().getTime();
         this.fromuserid=fromuserid;
+        this.likes=likes;
+        this.dislikes=dislikes;
     }
 
     public long getTime() {
@@ -51,9 +55,22 @@ public String getfromuserid(){ return fromuserid;}
         return key;
     }
 
-    public void setVotes(int vote) {
-        this.votes = vote;
+    public int  getlikes()
+    {
+        return this.likes;
+
     }
+
+    public int getDislikes()
+    {
+
+        return this.dislikes;
+
+    }
+
+    //public void setVotes(int vote) {
+       // this.votes = vote;
+    //}
 
     public void setKey(String key) {
         this.key = key;

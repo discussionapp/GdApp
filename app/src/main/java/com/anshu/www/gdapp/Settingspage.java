@@ -63,6 +63,9 @@ public class Settingspage extends AppCompatActivity {
         updateaccountsettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
                 updateSettings();
 
 
@@ -89,7 +92,20 @@ public class Settingspage extends AppCompatActivity {
         Rootref.child("Users").child(currentuserid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image"))) {
+                if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")) &&  (!dataSnapshot.hasChild("status"))) {
+                    String retrieveusername = dataSnapshot.child("name").getValue().toString();
+                    //String retrieveuserstatus = dataSnapshot.child("status").getValue().toString();
+                    String retrieveprofileimage = dataSnapshot.child("image").getValue().toString();
+
+                    username.setText(retrieveusername);
+                    //userstatus.setText(retrieveuserstatus);
+                    Picasso.get().load(retrieveprofileimage).into(userprofileImage);
+
+
+                }
+
+                else if((dataSnapshot.exists())&& (dataSnapshot.hasChild("name")) && (dataSnapshot.hasChild("image")) && (dataSnapshot.hasChild("status")))
+                {
                     String retrieveusername = dataSnapshot.child("name").getValue().toString();
                     String retrieveuserstatus = dataSnapshot.child("status").getValue().toString();
                     String retrieveprofileimage = dataSnapshot.child("image").getValue().toString();
@@ -99,13 +115,18 @@ public class Settingspage extends AppCompatActivity {
                     Picasso.get().load(retrieveprofileimage).into(userprofileImage);
 
 
-                } else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name"))) {
+
+
+                }
+
+
+                else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name"))) {
                     String retrieveusername = dataSnapshot.child("name").getValue().toString();
-                    String retrieveuserstatus = dataSnapshot.child("status").getValue().toString();
+                   // String retrieveuserstatus = dataSnapshot.child("status").getValue().toString();
 
 
                     username.setText(retrieveusername);
-                    userstatus.setText(retrieveuserstatus);
+                   // userstatus.setText(retrieveuserstatus);
                 } else {
                     username.setVisibility(View.VISIBLE);
                     Toast.makeText(Settingspage.this, "Please update your profile information", Toast.LENGTH_LONG).show();

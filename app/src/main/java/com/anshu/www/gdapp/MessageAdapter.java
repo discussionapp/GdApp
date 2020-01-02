@@ -79,8 +79,9 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageAdapterV
 
 String fromUserid;
 String messagesenderid=mauth.getCurrentUser().getUid();
-        fromUserid=GroupChat.returnfromuserid();
+        //fromUserid=GroupChat.returnfromuserid();
         final message message = messages.get(i);
+        fromUserid=message.getfromuserid();
 
         usersref=FirebaseDatabase.getInstance().getReference().child("Users").child(fromUserid);
 
