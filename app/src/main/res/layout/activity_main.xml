@@ -20,7 +20,8 @@
         android:layout_marginBottom="24dp"
         android:layout_gravity="center_horizontal"/>
 <!--Email Label-->
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -32,9 +33,10 @@
             android:hint="Email"
             android:textColor="@color/text"
             />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
     <!-- Password Label -->
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -45,8 +47,8 @@
             android:inputType="textPassword"
             android:hint="Password"
             android:textColor="@color/text"/>
-    </android.support.design.widget.TextInputLayout>
-    <android.support.v7.widget.AppCompatButton
+    </com.google.android.material.textfield.TextInputLayout>
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

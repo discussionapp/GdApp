@@ -1,37 +1,29 @@
 package com.anshu.www.gdapp;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anshu.www.gdapp.modal.AdminHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,13 +34,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
-public class navigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class navigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ListView listview3;
     FirebaseDatabase database3;
     DatabaseReference ref3;
@@ -61,6 +50,7 @@ public class navigationActivity extends AppCompatActivity
 
     ArrayAdapter<String> adapter3;
     static user3 user;
+    static AdminHelper admin;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,15 +59,17 @@ public class navigationActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         listview3 = findViewById(R.id.listview3);
         user = new user3();
+        admin = new AdminHelper();
         builder = new AlertDialog.Builder(navigationActivity.this, R.style.MyDialogTheme);
         mauth5 = FirebaseAuth.getInstance();
         checkref = FirebaseDatabase.getInstance().getReference();
         Rootref = FirebaseDatabase.getInstance().getReference();
         database3 = FirebaseDatabase.getInstance();
-        ref3 = database3.getReference("todaystopics");
+        //ref3 = database3.getReference("todaystopics");
+        ref3 = database3.getReference("DailyTopic");
         list3 = new ArrayList<>();
-        adapter3 = new ArrayAdapter<String>(this, R.layout.userinfo2, R.id.textview3, list3);
 
+        adapter3 = new ArrayAdapter<String>(this, R.layout.userinfo2, R.id.textview3, list3);
 
 
         ref3.addValueEventListener(new ValueEventListener() {
@@ -86,8 +78,10 @@ public class navigationActivity extends AppCompatActivity
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    user = ds.getValue(user3.class);
-                    list3.add(user.getTopic().toString() + " " + "by" + " " + user.getName());
+                    //user = ds.getValue(user3.class);
+                    admin = ds.getValue(AdminHelper.class);
+                    //list3.add(user.getTopic().toString() + " " + "by" + " " + user.getName());
+                    list3.add(admin.getTopic_name().toString());
 
                 }
                 listview3.setAdapter(adapter3);
@@ -150,7 +144,7 @@ public class navigationActivity extends AppCompatActivity
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 finish();
-                                Toast.makeText(getApplicationContext(),"you choose yes action for alertbox",
+                                Toast.makeText(getApplicationContext(), "you choose yes action for alertbox",
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
@@ -158,7 +152,7 @@ public class navigationActivity extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int id) {
                                 //  Action for 'NO' Button
                                 dialog.cancel();
-                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+                                Toast.makeText(getApplicationContext(), "you choose no action for alertbox",
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -231,7 +225,7 @@ public class navigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            
+
         } else if (id == R.id.nav_topics) {
             Intent j = new Intent(navigationActivity.this, retrievedata.class);
             startActivity(j);
@@ -296,8 +290,7 @@ public class navigationActivity extends AppCompatActivity
 
     }
 
-   static public String currentusername()
-    {
+    static public String currentusername() {
 
         return user.getName();
     }

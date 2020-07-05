@@ -12,11 +12,39 @@ public class message {
     int dislikes;
     String fromuserid;
     private long time;
+    boolean polllike,polldislike;
 
 
     public message() {}
 
-    public message(String msg, String name,int likes,int dislikes,String fromuserid) {
+    public message(String msg, String name, int likes, int dislikes, String fromuserid,boolean polllike,boolean polldislike) {
+        this.msg = msg;
+        this.name = name;
+        time=new Date().getTime();
+        this.fromuserid=fromuserid;
+        this.likes=likes;
+        this.dislikes=dislikes;
+        this.polllike = polllike;
+        this.polldislike = polldislike;
+    }
+
+    public boolean isPolllike() {
+        return polllike;
+    }
+
+    public void setPolllike(boolean polllike) {
+        this.polllike = polllike;
+    }
+
+    public boolean isPolldislike() {
+        return polldislike;
+    }
+
+    public void setPolldislike(boolean polldislike) {
+        this.polldislike = polldislike;
+    }
+
+    public message(String msg, String name, int likes, int dislikes, String fromuserid) {
         this.msg = msg;
         this.name = name;
         time=new Date().getTime();

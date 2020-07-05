@@ -19,11 +19,12 @@
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal"/>
 <!--Name Label-->
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,10 +32,12 @@
                 android:inputType="textCapWords"
                 android:hint="Name"
                 android:textColorHint="#000000"
-                android:textColor="@color/text"/>
-        </android.support.design.widget.TextInputLayout>
+                android:textColor="@color/text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
         <!--Email Label-->
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
@@ -47,9 +50,10 @@
                 android:hint="Email"
                 android:textColorHint="#000000"
                 android:textColor="@color/text"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         <!--Password Label-->
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
@@ -62,9 +66,9 @@
                 android:hint="Password"
                 android:textColorHint="#000000"
                 android:textColor="@color/text"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 <!--Sign up button-->
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

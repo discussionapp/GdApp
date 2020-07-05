@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".dashboardActivity"></activity>
+        <activity android:name=".AdminPanel"/>
+        <activity android:name=".dashboardActivity" />
         <activity android:name=".GroupChat" />
         <activity android:name=".Settingspage" />
         <activity android:name=".groupchatactivity" />

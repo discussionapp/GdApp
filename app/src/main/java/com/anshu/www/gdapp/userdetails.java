@@ -1,8 +1,6 @@
 package com.anshu.www.gdapp;
 
 
-
-
 public class userdetails {
 
     private String Topic;

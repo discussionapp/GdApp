@@ -1,67 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
 
     android:padding="5dp">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/msgbackground_left">
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="40dp"
-            android:id="@+id/receiverprofileimage"
-            android:src="@drawable/profile_image"
-            android:layout_height="40dp" />
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Doyel"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:layout_gravity="start"
-            android:textAllCaps="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:background="@drawable/msgbackground_left"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/receiverprofileimage"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/profile_image" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Doyel"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/show_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:text="hello"
-            android:textStyle="normal"
             android:padding="5dp"
-            android:id="@+id/show_message"
+            android:text="hello"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textStyle="normal" />
 
         <TextView
+            android:id="@+id/text_msg_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="11:40am"
-            android:id="@+id/text_msg_time"
-            android:textSize="12sp"
+            android:layout_gravity="end"
             android:padding="1dp"
-            android:layout_gravity="start"
-            />
-        <ImageButton
-            android:layout_width="20dp"
-            android:id="@+id/img1"
-            android:layout_height="20dp"
+            android:text="11:40am"
+            android:textSize="12sp" />
 
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/img2"
-            android:layout_width="20dp"
+            <ImageButton
+                android:id="@+id/img1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_thumb_up_black_24dp"
+                android:layout_margin="5dp"/>
 
-            android:layout_height="20dp" />
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/votesshow"
-    android:text="Votes"/>
+            <TextView
+                android:id="@+id/like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Votes" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/img2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_thumb_down_black_24dp" />
+            <TextView
+                android:id="@+id/dislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Votes" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

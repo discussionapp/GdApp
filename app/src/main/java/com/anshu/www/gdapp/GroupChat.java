@@ -1,19 +1,16 @@
 package com.anshu.www.gdapp;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,12 +38,10 @@ public class GroupChat extends AppCompatActivity {
     RecyclerView recyclerView;
     EditText msg;
     FloatingActionButton send;
-   public String  currentgroupname2;
-   static String tempname;
-int likes=0;
-int dislikes=0;
-
-
+    public String currentgroupname2;
+    static String tempname;
+    int likes = 0;
+    int dislikes = 0;
 
 
     @Override
@@ -55,7 +50,7 @@ int dislikes=0;
         currentgroupname2 = getIntent().getExtras().get("groupname").toString();
         setContentView(R.layout.activity_group_chat);
 
-        tempname=currentgroupname2;
+        tempname = currentgroupname2;
 
         toolbar = findViewById(R.id.group_chat_bar_layout1);
         setSupportActionBar(toolbar);
@@ -75,7 +70,7 @@ int dislikes=0;
             public void onClick(View view) {
 
                 if (!TextUtils.isEmpty(msg.getText().toString())) {
-                    message message = new message(msg.getText().toString(), user.getName(),likes,dislikes,auth.getCurrentUser().getUid());
+                    message message = new message(msg.getText().toString(), user.getName(), likes, dislikes, auth.getCurrentUser().getUid(),false,false);
                     msg.setText("");
                     messageref.push().setValue(message);
 
@@ -177,16 +172,15 @@ int dislikes=0;
     private void displaymessages(List<message> messages) {
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(GroupChat.this);
-        linearLayoutManager.scrollToPosition(messages.size()-1);
+        linearLayoutManager.scrollToPosition(messages.size() - 1);
         recyclerView.setLayoutManager(linearLayoutManager);
-       // recyclerView.setLayoutManager(new LinearLayoutManager(GroupChat.this));
+        // recyclerView.setLayoutManager(new LinearLayoutManager(GroupChat.this));
         messageAdapter = new MessageAdapter(GroupChat.this, messages, messageref);
         recyclerView.setAdapter(messageAdapter);
     }
 
-    public static String returnfromuserid()
-    {
-        return  auth.getCurrentUser().getUid();
+    public static String returnfromuserid() {
+        return auth.getCurrentUser().getUid();
 
     }
 

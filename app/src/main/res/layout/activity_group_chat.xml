@@ -15,14 +15,14 @@
 
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/chat_linear_layout"
         android:layout_below="@+id/group_chat_bar_layout1">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 
@@ -61,7 +61,7 @@
         </LinearLayout>
 
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
